@@ -40,7 +40,7 @@ class CheckController extends Controller
             DB::transaction(function () use ($request, $data) {
                 $check = CheckRepository::create($request->validated());
 
-                /*if ($request->hasFile('picture')) {
+                if ($request->hasFile('picture')) {
                     $file = $request->file('picture');
                     $name = "check/{$check->id}.{$file->extension()}";
                     $path = Storage::disk('s3')->put(
@@ -54,9 +54,9 @@ class CheckController extends Controller
                     }
 
                     $data->push(CheckRepository::update($check->id,[
-                        'picture' => Storage::disk('s3')->url($path)
+                        'picture' => Storage::disk('s3')->url($name)
                     ]));
-                }*/
+                }
             });
 
             return $this->success($data, 'Check successfully added');
