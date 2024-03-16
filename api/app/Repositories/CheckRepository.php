@@ -14,7 +14,7 @@ abstract class CheckRepository extends AbstractRepository
 
     public static function all(Request $filter):LengthAwarePaginator
     {
-        $query = self::$model;
+        $query = self::$model::select();
 
         if (isset($filter->year) && isset($filter->month)) {
             $startDate = Carbon::createFromFormat('Y-m-d', 
