@@ -28,7 +28,7 @@ class CheckApproveRequest extends FormRequest
     public function rules()
     {
         return [
-            'situation' => 'required|in:Aceepted,Rejected',
+            'situation' => 'required|in:Accepted,Rejected',
         ];
     }
 

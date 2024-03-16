@@ -152,7 +152,7 @@ class CheckController extends Controller
             DB::transaction(function () use ($request, $check, $data) {
                 CheckRepository::update($check->id, $request->validated());
 
-                if ($request->situation == 'Aceepted') {
+                if ($request->situation == 'Accepted') {
                     $transaction = TransactionRepository::create([
                         'user_id' => $check->user_id,
                         'description' => $check->description,

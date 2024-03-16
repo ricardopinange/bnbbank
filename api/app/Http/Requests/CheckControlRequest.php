@@ -29,7 +29,7 @@ class CheckControlRequest extends FormRequest
         return [
             'year' => 'digits:4|integer|min:1900|max:'.date('Y'),
             'month' => 'integer|min:1|max:12',
-            'situation' => 'in:Pending,Aceepted,Rejected',
+            'situation' => 'in:Pending,Accepted,Rejected',
         ];
     }
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description');
 			$table->string('picture');
             $table->decimal('amount', 14,2);
-            $table->enum('situation', ['Pending', 'Aceepted', 'Rejected'])->default('Pending');
+            $table->enum('situation', ['Pending', 'Accepted', 'Rejected'])->default('Pending');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');

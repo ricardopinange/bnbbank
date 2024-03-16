@@ -31,7 +31,7 @@ class CheckRequest extends FormRequest
             'description' => 'required|min:3|max:255',
             'picture' => ['required', File::image()->max(10 * 1024)],
             'amount' => 'required|numeric|between:0.01,999999999999.99',
-            'situation' => 'in:Aceepted,Rejected',
+            'situation' => 'in:Accepted,Rejected',
         ];
     }
 
