@@ -1,0 +1,499 @@
+openapi: 3.0.3
+info:
+  title: BNB Bank
+  description: |-
+    Api used in BNB Bank
+
+servers:
+  - url: /api
+paths:
+  paths:
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: Register a new user
+      description: Register a new user
+      operationId: userRegister
+      consumes:
+         - multipart/form-data
+      requestBody:
+        description: Create user
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRegisterSchemas'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: User login
+      description: User login
+      operationId: authLogin
+      consumes:
+         - multipart/form-data
+      requestBody:
+        description: Login
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthSchemas'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /auth/logout:
+    post:
+      tags:
+        - auth
+      summary: User logout
+      description: User logout
+      operationId: authLogout
+      security:
+        - bearerAuth: []
+      consumes:
+         - multipart/form-data
+      requestBody:
+        description: Logout
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /transaction/current-balance/:
+    get:
+      tags:
+        - transaction
+      summary: Current Balance
+      description: Current Balance of customer
+      operationId: transactionCurrentBalance
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /transaction/month-balance/:
+    get:
+      tags:
+        - transaction
+      summary: Month Balance
+      description: Month Balance of customer
+      operationId: transactionMonthBalance
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: query
+          description: Year
+          required: true
+          schema:
+            type: integer
+            example: 2024
+        - name: month
+          in: query
+          description: Month
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /transaction/list/:
+    get:
+      tags:
+        - transaction
+      summary: Transaction list
+      description: List of all transactions
+      operationId: transactionList
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: query
+          description: Year
+          required: true
+          schema:
+            type: integer
+            example: 2024
+        - name: month
+          in: query
+          description: Month
+          required: true
+          schema:
+            type: integer
+            example: 3
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /transaction/insert:
+    post:
+      tags:
+        - transaction
+      summary: Insert transaction
+      description: Insert transaction
+      operationId: transactionInsert
+      security:
+        - bearerAuth: []
+      consumes:
+         - multipart/form-data
+      requestBody:
+        description: Insert transaction
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TransactionSchemas'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /check/list/:
+    get:
+      tags:
+        - check
+      summary: Check list
+      description: List of all checks
+      operationId: checkList
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: query
+          description: Year
+          required: true
+          schema:
+            type: integer
+            example: 2024
+        - name: month
+          in: query
+          description: Month
+          required: true
+          schema:
+            type: integer
+            example: 3
+        - name: situation
+          in: query
+          description: Situation
+          required: true
+          schema:
+            type: string
+            enum: [Pending, Accepted, Rejected]
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /check/insert:
+    post:
+      tags:
+        - check
+      summary: Insert check
+      description: Insert check
+      operationId: checkInsert
+      security:
+        - bearerAuth: []
+      consumes:
+         - multipart/form-data
+      requestBody:
+        description: Insert check
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CheckSchemas'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /check/control/:
+    get:
+      tags:
+        - admin
+      summary: Check Control
+      description: List of all checks for control
+      operationId: checkControl
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: year
+          in: query
+          description: Year
+          schema:
+            type: integer
+            example: 2024
+        - name: month
+          in: query
+          description: Month
+          schema:
+            type: integer
+            example: 3
+        - name: situation
+          in: query
+          description: Situation
+          schema:
+            type: string
+            enum: [Pending, Accepted, Rejected]
+            example: Pending
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /check/details/{id}:
+    get:
+      tags:
+        - admin
+      summary: Check Details
+      description: List of check details for control
+      operationId: checkDetails
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: Id check
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Show check data
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+  /check/approve/{id}:
+    post:
+      tags:
+        - admin
+      summary: Approve check
+      description: Approve check
+      operationId: checkApprove
+      security:
+        - bearerAuth: []
+      consumes:
+         - multipart/form-data
+      parameters:
+        - name: id
+          in: path
+          description: Id check
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Approve check
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CheckApproveSchemas'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSuccess'
+        500:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    UserRegisterSchemas:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - name
+        - email
+        - password
+    AuthSchemas:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    TransactionSchemas:
+      type: object
+      properties:
+        description:
+          type: string
+        type:
+          type: string
+          example: Debit
+        amount:
+          type: number
+          format: double
+    CheckSchemas:
+      type: object
+      properties:
+        description:
+          type: string
+        amount:
+          type: number
+          format: double
+        picture:
+          type: file
+      required:
+        - description
+        - amount
+        - picture
+    CheckApproveSchemas:
+      type: object
+      properties:
+        situation:
+          type: string
+          enum: [Accepted, Rejected]
+      required:
+        - situation
+    ApiResponseSuccess:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          oneOf:
+            - type: string
+            - type: number
+            - type: integer
+            - type: boolean
+            - type: array
+            - items: {}
+            - type: object
+    ApiResponseError:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: false
+        message:
+          type: string
+        errors:
+          oneOf:
+            - type: string
+            - type: number
+            - type: integer
+            - type: boolean
+            - type: array
+            - items: {}
+            - type: object

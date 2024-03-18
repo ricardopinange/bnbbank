@@ -54,7 +54,9 @@ class Controller extends BaseController
             [
                 'success' => false,
                 'message' => $message,
-                'errors' => $e->getMessage()
+                'errors' => is_array($e->getMessage())
+                    ? $e->getMessage()
+                    : [ $e->getMessage() ]
             ],
             $this->isValidHttpResponse($e->getCode())
                 ? $e->getCode()
